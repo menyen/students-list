@@ -1,9 +1,11 @@
+const _ = require('lodash');
+
 class Student {
-    constructor(fields) {
+    constructor() {
         this._fullname = '';
         this._eid = '';
         this._classes = [];
-        this._addresses = '';
+        this._addresses = [];
         this._invisible = false;
         this._see_all = false;
     }
@@ -21,7 +23,7 @@ class Student {
     }
 
     set addresses(addresses) {
-        this._addresses = addresses;
+        this._addresses = this._addresses.concat(addresses);
     }
 
     set invisible(invisible) {
@@ -55,4 +57,8 @@ class Student {
     get see_all() {
         return this._see_all;
     }
+}
+
+module.exports = () => {
+    return Student;
 }

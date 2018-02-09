@@ -1,12 +1,8 @@
-var fs = require('fs');
-var _ = require('lodash');
-// Require `PhoneNumberFormat`.
-const PNF = require('google-libphonenumber').PhoneNumberFormat;
- 
-// Get an instance of `PhoneNumberUtil`.
-const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
- 
- 
+const fs = require('fs');
+const _ = require('lodash');
+
+const Student = require('./models/Student')();
+const Address = require('./models/Address')();
 
 String.prototype.splitCSV = function (sep) {
     for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
@@ -22,32 +18,33 @@ String.prototype.splitCSV = function (sep) {
 
 fs.readFile('input.csv', 'utf8', function (err, data) {
     if (err) throw err;
-    var lines = data.split('\n');
-    var header = lines.shift().splitCSV();
-    var result = [];
+    let lines = data.split('\n');
+    let header = lines.shift().splitCSV();
+    let result = [];
     lines.forEach(line => {
-        var cells = line.splitCSV();
-        var obj = {"fullname": "", "eid": "", "classes": [], "addresses": [], "invisible": false, "see_all": false};
-        header.forEach((columnHeader, index) => {
-            headerAndTags = _.words(columnHeader);
-            if(headerAndTags.length > 1){
-                var type = headerAndTags.shift();
-                var addressValue = cells[index];
-                
-                var addressElement = {"type": type, "tags": headerAndTags, "address": addressValue};
-                obj.addresses.push(addressElement);
-            } else if(columnHeader == 'class') {
-                obj.classes = obj.classes.concat(_.words(cells[index], /([A-Za-z0-9 ])+/g));
-            } else if(columnHeader == 'invisible'){
-                obj[columnHeader] = Boolean(cells[index]);
-            } else if(columnHeader == 'see_all'){
-                obj[columnHeader] = Boolean(cells[index] == 'yes');
-            } else if(cells[index] != ''){
-                obj[columnHeader] = cells[index];
+        let fields = line.splitCSV();
+        let student = new Student();
+        header.forEach((fieldHeader, index) => {
+            let tags = _.words(fieldHeader, /[^, ]+/g);
+            if (tags.length > 1) {
+                let type = tags.shift();
+                if (type == 'email') {
+                    let emails = _.words(fields[index], /\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/g);
+                    emails.forEach(email => {
+                        let addressElement = new Address(type, tags, email);
+                        Reflect.set(student, 'addresses', addressElement);
+                    });
+                } else {
+                    let addressElement = new Address(type, tags, fields[index]);
+                    if (addressElement.isValid()) Reflect.set(student, 'addresses', addressElement);
+                }
+            } else if (fieldHeader == 'class') {
+                Reflect.set(student, 'classes', fields[index]);
+            } else {
+                Reflect.set(student, fieldHeader, fields[index]);
             }
         });
-        //console.log(element.splitCSV());
-        result.push(obj);
+        result.push(student);
     });
     console.log(JSON.stringify(result));
 });

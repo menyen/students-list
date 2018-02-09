@@ -1,8 +1,30 @@
+const _ = require('lodash');
+
+// Require `PhoneNumberFormat`.
+const PNF = require('google-libphonenumber').PhoneNumberFormat;
+ 
+// Get an instance of `PhoneNumberUtil`.
+const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+
 class Address {
-    contructor() {
-        this._type = "";
-        this._tags = [];
-        this.address = "";
+    constructor(type, tags, address) {
+        this._type = type;
+        this._tags = tags;
+        if(this._type == 'phone') {
+            try{
+                const number = phoneUtil.parseAndKeepRawInput(address, 'BR');
+                if(phoneUtil.isValidNumber(number)){
+                    this._address = phoneUtil.format(number, PNF.E164).replace('+', '');
+                } else {
+                    this._address = '';    
+                }
+            } catch(err) {
+                this._address = '';
+            }
+        } else {
+            var pattern = /\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/g; 
+            this._address = _.words(address, pattern);
+        }
     }
 
     set type(type) {
@@ -28,4 +50,13 @@ class Address {
     get address() {
         return this._address;
     }
+
+    isValid() {
+        if(this._address == '') return false;
+        return true;
+    }
+}
+
+module.exports = () => {
+    return Address;
 }
