@@ -1,5 +1,8 @@
 const _ = require('lodash');
 
+/** 
+ * This class stores information about an individual student
+*/
 class Student {
     constructor() {
         this._fullname = '';

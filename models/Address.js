@@ -6,6 +6,10 @@ const PNF = require('google-libphonenumber').PhoneNumberFormat;
 // Get an instance of `PhoneNumberUtil`.
 const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
 
+/** 
+ * This Address class stores miscellaneous information like email, phone, address etc
+ * This class also holds some validations regarding phone and email
+*/
 class Address {
     constructor(type, tags, address) {
         this._type = type;

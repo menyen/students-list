@@ -5,6 +5,11 @@ const Student = require('./models/Student')();
 const Address = require('./models/Address')();
 const StudentList = require('./models/StudentList')();
 
+/**
+ * Function slipts rows from a CSV file into cells
+ * returns an array
+ * @param {*} sep 
+ */
 String.prototype.splitCSV = function (sep) {
     for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
         if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {
@@ -17,6 +22,7 @@ String.prototype.splitCSV = function (sep) {
     } return foo;
 }
 
+// Reading input
 fs.readFile('input.csv', 'utf8', function (err, data) {
     if (err) throw err;
     let lines = data.split('\n');
@@ -25,29 +31,31 @@ fs.readFile('input.csv', 'utf8', function (err, data) {
     lines.forEach(line => {
         let fields = line.splitCSV();
         let student = new Student();
+
+        //iterate over the header fields because they do not present the risk of being empty
         header.forEach((fieldHeader, index) => {
             let tags = _.words(fieldHeader, /[^, ]+/g);
-            if (tags.length > 1) {
+            if (tags.length > 1) { // => this condition treats Address types
                 let type = tags.shift();
-                if (type == 'email') {
+                if (type == 'email') { // if there is more than 1 email in a field, breaks it and create an address for each one
                     let emails = _.words(fields[index], /\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}/g);
                     emails.forEach(email => {
-                        let addressElement = new Address(type, tags, email);
-                        Reflect.set(student, 'addresses', addressElement);
+                        Reflect.set(student, 'addresses', new Address(type, tags, email));
                     });
-                } else {
+                } else { // adds phone
                     let addressElement = new Address(type, tags, fields[index]);
-                    if (addressElement.isValid()) Reflect.set(student, 'addresses', addressElement);
+                    if (addressElement.isValid()) Reflect.set(student, 'addresses', new Address(type, tags, fields[index]));
                 }
-            } else if (fieldHeader == 'class') {
+            } else if (fieldHeader == 'class') { // => since Student object stores 'classes' as plural, it won't find 'class'
                 Reflect.set(student, 'classes', fields[index]);
-            } else {
+            } else { // => everything else falls here
                 Reflect.set(student, fieldHeader, fields[index]);
             }
         });
         result.add(student);
     });
 
+    // writing output
     fs.writeFile('output.json', JSON.stringify(result.list, null, 4), (err) => {  
         if (err) throw err;
     });

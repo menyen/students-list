@@ -1,3 +1,8 @@
+/** 
+ * Class to save all students in a list
+ * The main reason this class is to check if a student already exists in the list,
+ * if the students exists, information from the two students is merged
+*/
 class StudentList {
     constructor() {
         this._list = [];
