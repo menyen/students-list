@@ -3,6 +3,7 @@ const _ = require('lodash');
 
 const Student = require('./models/Student')();
 const Address = require('./models/Address')();
+const StudentList = require('./models/StudentList')();
 
 String.prototype.splitCSV = function (sep) {
     for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
@@ -20,7 +21,7 @@ fs.readFile('input.csv', 'utf8', function (err, data) {
     if (err) throw err;
     let lines = data.split('\n');
     let header = lines.shift().splitCSV();
-    let result = [];
+    let result = new StudentList();
     lines.forEach(line => {
         let fields = line.splitCSV();
         let student = new Student();
@@ -44,10 +45,10 @@ fs.readFile('input.csv', 'utf8', function (err, data) {
                 Reflect.set(student, fieldHeader, fields[index]);
             }
         });
-        result.push(student);
+        result.add(student);
     });
 
-    fs.writeFile('output.json', JSON.stringify(result, null, 4), (err) => {  
+    fs.writeFile('output.json', JSON.stringify(result.list, null, 4), (err) => {  
         if (err) throw err;
     });
 });

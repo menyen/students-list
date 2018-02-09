@@ -27,11 +27,13 @@ class Student {
     }
 
     set invisible(invisible) {
-        this._invisible = invisible ? Boolean(invisible) : false;;
+        if(typeof(invisible) === 'boolean') this._invisible = invisible;
+        else this._invisible = invisible ? Boolean(invisible) : false;;
     }
 
     set see_all(see_all) {
-        this._see_all = see_all ? Boolean(see_all == 'yes') : false;
+        if(typeof(see_all) === 'boolean') this._see_all = see_all;
+        else this._see_all = see_all ? Boolean(see_all == 'yes') : false;
     }
 
     get fullname() {

@@ -5,7 +5,10 @@
         "_classes": [
             "Sala 1",
             "Sala 2",
-            "Sala 3"
+            "Sala 3",
+            "Sala 4",
+            "Sala 5",
+            "Sala 6"
         ],
         "_addresses": [
             {
@@ -43,20 +46,7 @@
                 "_address": [
                     "johndoealuno1@gmail.com"
                 ]
-            }
-        ],
-        "_invisible": true,
-        "_see_all": false
-    },
-    {
-        "_fullname": "John Doe 1",
-        "_eid": "1234",
-        "_classes": [
-            "Sala 4",
-            "Sala 5",
-            "Sala 6"
-        ],
-        "_addresses": [
+            },
             {
                 "_type": "email",
                 "_tags": [
@@ -93,7 +83,7 @@
                 "_address": "551138839333"
             }
         ],
-        "_invisible": false,
+        "_invisible": true,
         "_see_all": true
     },
     {
