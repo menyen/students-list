@@ -46,5 +46,8 @@ fs.readFile('input.csv', 'utf8', function (err, data) {
         });
         result.push(student);
     });
-    console.log(JSON.stringify(result));
+
+    fs.writeFile('output.json', JSON.stringify(result, null, 4), (err) => {  
+        if (err) throw err;
+    });
 });

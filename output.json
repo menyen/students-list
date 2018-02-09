@@ -1,0 +1,167 @@
+[
+    {
+        "_fullname": "John Doe 1",
+        "_eid": "1234",
+        "_classes": [
+            "Sala 1",
+            "Sala 2",
+            "Sala 3"
+        ],
+        "_addresses": [
+            {
+                "_type": "email",
+                "_tags": [
+                    "Responsável",
+                    "Pai"
+                ],
+                "_address": [
+                    "johndoepai1@gmail.com"
+                ]
+            },
+            {
+                "_type": "phone",
+                "_tags": [
+                    "Responsável",
+                    "Mãe"
+                ],
+                "_address": "551138839332"
+            },
+            {
+                "_type": "email",
+                "_tags": [
+                    "Mãe"
+                ],
+                "_address": [
+                    "johndoemae1@gmail.com"
+                ]
+            },
+            {
+                "_type": "email",
+                "_tags": [
+                    "Aluno"
+                ],
+                "_address": [
+                    "johndoealuno1@gmail.com"
+                ]
+            }
+        ],
+        "_invisible": true,
+        "_see_all": false
+    },
+    {
+        "_fullname": "John Doe 1",
+        "_eid": "1234",
+        "_classes": [
+            "Sala 4",
+            "Sala 5",
+            "Sala 6"
+        ],
+        "_addresses": [
+            {
+                "_type": "email",
+                "_tags": [
+                    "Responsável",
+                    "Pai"
+                ],
+                "_address": [
+                    "johndoepai2@gmail.com"
+                ]
+            },
+            {
+                "_type": "email",
+                "_tags": [
+                    "Responsável",
+                    "Pai"
+                ],
+                "_address": [
+                    "johndoepai3@gmail.com"
+                ]
+            },
+            {
+                "_type": "phone",
+                "_tags": [
+                    "Pai"
+                ],
+                "_address": "5519985504400"
+            },
+            {
+                "_type": "phone",
+                "_tags": [
+                    "Responsável",
+                    "Mãe"
+                ],
+                "_address": "551138839333"
+            }
+        ],
+        "_invisible": false,
+        "_see_all": true
+    },
+    {
+        "_fullname": "Mary Doe 2",
+        "_eid": "1235",
+        "_classes": [
+            "Sala 1"
+        ],
+        "_addresses": [
+            {
+                "_type": "email",
+                "_tags": [
+                    "Responsável",
+                    "Pai"
+                ],
+                "_address": [
+                    "marydoe1@gmail.com"
+                ]
+            }
+        ],
+        "_invisible": true,
+        "_see_all": false
+    },
+    {
+        "_fullname": "Victor Doe 3",
+        "_eid": "1236",
+        "_classes": [
+            "Sala 6",
+            "Sala 7"
+        ],
+        "_addresses": [
+            {
+                "_type": "email",
+                "_tags": [
+                    "Responsável",
+                    "Pai"
+                ],
+                "_address": [
+                    "victordoepai1@hotmail.com"
+                ]
+            },
+            {
+                "_type": "email",
+                "_tags": [
+                    "Mãe"
+                ],
+                "_address": [
+                    "victordoe3@gmail.com"
+                ]
+            },
+            {
+                "_type": "email",
+                "_tags": [
+                    "Aluno"
+                ],
+                "_address": [
+                    "victordoe3@gmail.com"
+                ]
+            },
+            {
+                "_type": "phone",
+                "_tags": [
+                    "Aluno"
+                ],
+                "_address": "551974430033"
+            }
+        ],
+        "_invisible": false,
+        "_see_all": false
+    }
+]
