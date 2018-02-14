@@ -23,7 +23,15 @@ String.prototype.splitCSV = function (sep) {
 }
 
 // Reading input
-fs.readFile('input.csv', 'utf8', function (err, data) {
+let inputFileName = process.argv[2] ? process.argv[2] : 'input.csv';
+if(inputFileName.match(/.+\.csv$/g)) {
+    console.log('Valid csv file');
+} else {
+    console.log('Invalid file, file must have csv extension');
+    return;
+}
+
+fs.readFile(inputFileName, 'utf8', function (err, data) {
     if (err) throw err;
     let lines = data.split('\n');
     let header = lines.shift().splitCSV();
